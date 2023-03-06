@@ -22,6 +22,15 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        public static PersonModel ReadPerson(string name)
+        {
+            using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+            {
+                var listOfPerson = connectionWithServer.Query<PersonModel>($"SELECT * FROM kha_person WHERE person_name = '{name}'", new DynamicParameters());
+                return listOfPerson.FirstOrDefault();
+            }
+        }
+
         public static void SavePersonList(PersonModel person)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -30,11 +39,11 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
-        public static void EditPersonList(PersonModel person)
+        public static void EditPersonList(string name, int id)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                connectionWithServer.Execute("UPDATE kha_person SET person_name = @newPersonName WHERE person_name = @oldName", person);
+                connectionWithServer.Execute($"UPDATE kha_person SET person_name = '{name}' WHERE id = {id} ");
             }
         }
 

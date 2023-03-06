@@ -153,39 +153,17 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 
         public static void EditPerson() // problem with Query
         {
-
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
-
-            //var editListOfPerson = connectionWithServer.Query<PersonModel>($" SELECT * FROM kha_person", new DynamicParameters());
-
-            foreach (var item in PostGresDataAccess.ReadPersonList())
-            {
-                Console.WriteLine("ID : {0}  |  Name: {1}| ", item.Id, item.Person_Name);
-            }
-
-            //Console.WriteLine("Write the ID number");
-            //int inputId = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Which person would you like to change the NAME?");
             string oldName = Console.ReadLine().ToUpper();
 
-            int count = 0;
-            foreach (var list in PostGresDataAccess.ReadPersonList())
-            {
-                if (list.Person_Name == oldName) //&& list.Id == inputId)
-                {
-                    Console.WriteLine("Perfect!");
-                    //count++;
-                }
-            }
+            PersonModel person = PostGresDataAccess.ReadPerson(oldName); 
 
             Console.WriteLine("Write the new name of the person.");
             string newPersonName = Console.ReadLine().ToUpper();
 
-            PersonModel person = new PersonModel();
-            person.Person_Name = oldName;
-            person.Person_Name = newPersonName;
-            PostGresDataAccess.EditPersonList(person);
+            PostGresDataAccess.EditPersonList(newPersonName, person.Id);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Successfully Changed.");
