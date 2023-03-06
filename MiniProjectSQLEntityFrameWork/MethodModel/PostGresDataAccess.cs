@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MiniProjectSQLEntityFrameWork.ClassModel;
 using Npgsql;
 using System;
@@ -72,11 +74,20 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
-        public static void EditProjectList(ProjectModel project)
+        public static ProjectModel ReadProject(string name)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                connectionWithServer.Execute("UPDATE kha_project SET project_name = @Project_Name WHERE project_name = @oldProjectName", project);
+                var listOfProject = connectionWithServer.Query<ProjectModel>($"SELECT * FROM kha_project WHERE project_name = '{name}'", new DynamicParameters());
+                return listOfProject.FirstOrDefault();
+            }
+        }
+
+        public static void EditProjectList(String name, int id)
+        {
+            using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+            {
+                connectionWithServer.Execute($"UPDATE kha_project SET project_name = '{name}' WHERE id = {id} ");
             }
         }
 
@@ -104,6 +115,15 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 connectionWithServer.Execute("INSERT INTO kha_project_person(project_id, person_id, hours) VALUES (@Project_Id, @Person_Id, @Hours)", registration);
             }
         }
+
+        //public static ProjectModel ReadRegistration(int hours)
+        //{
+        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+        //    {
+        //        var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * FROM kha_project_person WHERE project_name = '{name}'", new DynamicParameters());
+        //        return listOfRegistrationList.FirstOrDefault();
+        //    }
+        //}
 
         public static void EditRegistrationList(RegistrationModel registration)
         {

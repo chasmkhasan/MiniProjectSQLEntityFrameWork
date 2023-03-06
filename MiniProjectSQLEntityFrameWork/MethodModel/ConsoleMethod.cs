@@ -89,16 +89,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 InvalidInput();
             }
 
-            //validation of ID //Probelm
-            //foreach (var item in PostGresDataAccess.ReadProjectList())
-            //{
-            //    if (item.Id == inputProjectId)
-            //    {
-            //        //IdDontExit();
-            //        //goto inputProjectId;
-            //    }
-            //}
-
             RegistrationModel registration = new RegistrationModel();
             registration.Project_Id = inputProjectId;
             PostGresDataAccess.SaveRegistrationList(registration);
@@ -119,17 +109,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 InvalidInput();
             }
 
-            // validation of ID   // Problem
-            // Able to take Name instead of ID. Then I need to foreign of DB.
-            //foreach (var list in PostGresDataAccess.ReadPersonList())
-            //{
-            //    if (list.Id == inputProjectId)
-            //    {
-            //        //IdDontExit();
-            //        //goto inputPersonId;
-            //    }
-            //}
-
             RegistrationModel registrationModel = new RegistrationModel();
             registrationModel.Person_Id = inputPersonId;
             PostGresDataAccess.SaveRegistrationList(registration);
@@ -148,17 +127,16 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"\n Successfully Updated {inputProjectId} no project with {inputPersonId} no person {inputHour} hours has been registered in our System.");
             Console.ResetColor();
-
         }
 
-        public static void EditPerson() // problem with Query
+        public static void EditPerson()
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
             Console.WriteLine("Which person would you like to change the NAME?");
             string oldName = Console.ReadLine().ToUpper();
 
-            PersonModel person = PostGresDataAccess.ReadPerson(oldName); 
+            PersonModel person = PostGresDataAccess.ReadPerson(oldName);
 
             Console.WriteLine("Write the new name of the person.");
             string newPersonName = Console.ReadLine().ToUpper();
@@ -177,35 +155,15 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
-            foreach (var item in PostGresDataAccess.ReadProjectList())
-            {
-                Console.WriteLine("ID : {0}  |  Name: {1}| ", item.Id, item.Project_Name);
-            }
-
-            Console.WriteLine("Write the ID number");
-            int inputId = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Which project would you like to chnage?");
+            Console.WriteLine("Write Old Project Name");
             string oldProjectName = Console.ReadLine().ToUpper();
 
-            //int count = 0;
-            foreach (var list in PostGresDataAccess.ReadProjectList())
-            {
-                if (list.Project_Name == oldProjectName && list.Id == inputId)
-                {
-                    Console.WriteLine("Perfect!");
-                    //count++;
-                }
-            }
+            ProjectModel project = PostGresDataAccess.ReadProject(oldProjectName);
 
             Console.WriteLine("Write the new name of the project.");
             string newProjectName = Console.ReadLine().ToUpper();
 
-            ProjectModel project = new ProjectModel();
-            //project.Project_Name = oldProjectName;
-            project.Project_Name = newProjectName;
-
-            PostGresDataAccess.EditProjectList(project);
+            PostGresDataAccess.EditProjectList(newProjectName, project.Id);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Successfully Changed.");
@@ -215,46 +173,52 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             Console.ReadKey();
         }
 
-        public static void DeletePerson()
+        public static void EditHour()
         {
+            Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
-            Console.WriteLine("WelCome to Hasan's IT Corporation's List List.");
-
-            //var listOfPerson = connectionWithServer.Query<PersonModel>($"SELECT * FROM kha_person", new DynamicParameters());
-
-            foreach (var item in PostGresDataAccess.ReadPersonList())
+            foreach (var item in PostGresDataAccess.ReadRegistrationList())
             {
-                Console.WriteLine("ID : {0}  |  Name: {1}| ", item.Id, item.Person_Name);
+                Console.WriteLine("ID : {0}  |  Project ID : {1}  |  Person ID : {2}  |  Hour : {3}   |", item.Id, item.Id, item.Id, item.Hours);
             }
 
-            Console.WriteLine("Write the ID number");
+            Console.WriteLine("Write the ID number.");
             int inputId = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Which Person would you like to Delete?");
-            string deletedPersonName = Console.ReadLine().ToUpper();
+            Console.WriteLine("Please put Old Hour.");
+            int inputOldHour = int.Parse(Console.ReadLine());
 
             //int count = 0;
-            foreach (var list in PostGresDataAccess.ReadPersonList())
+            foreach (var list in PostGresDataAccess.ReadRegistrationList())
             {
-                if (list.Person_Name == deletedPersonName && list.Id == inputId)
+                if (list.Id == inputId && list.Hours == inputOldHour)
                 {
                     Console.WriteLine("Perfect!");
                     //count++;
                 }
             }
 
-            PersonModel person = new PersonModel();
-            person.Person_Name = deletedPersonName;
+            Console.WriteLine("Write the new Hours.");
+            int inputNewHour = int.Parse(Console.ReadLine());
 
-            PostGresDataAccess.DeletePersonList(person);
+            RegistrationModel registration = new RegistrationModel();
+            registration.Hours = inputNewHour;
+
+            PostGresDataAccess.EditRegistrationList(registration);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"Successfully Deleted.");
-            Console.WriteLine($"Our System will not recognized {deletedPersonName} anymore.");
+            Console.WriteLine($"Successfully Changed.");
+            Console.WriteLine($"We will count {inputNewHour} instead of {inputOldHour} in our system.");
             Console.ResetColor();
 
             Console.ReadKey();
 
+            foreach (var item in PostGresDataAccess.ReadRegistrationList())
+            {
+                Console.WriteLine("ID : {0}  |  Project ID : {1}  |  Person ID : {2}  |  Hour : {3}   |", item.Id, item.Id, item.Id, item.Hours);
+            }
+
+            Console.WriteLine("Please cross check with above information.");
         }
 
         public static void InvalidInput()

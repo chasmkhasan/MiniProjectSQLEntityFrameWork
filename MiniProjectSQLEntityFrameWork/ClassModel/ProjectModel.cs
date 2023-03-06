@@ -10,6 +10,6 @@ namespace MiniProjectSQLEntityFrameWork.ClassModel
     {
         public int Id { get; set; }
         public string Project_Name { get; set; }
-        //public string Old_Project_Name { get; set; }
+       
     }
 }

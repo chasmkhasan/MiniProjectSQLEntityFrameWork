@@ -6,23 +6,9 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 {
     public class Program
     {
-        //static void Main(string[] args)
-        //{
-        //    Console.WriteLine("Welcome To Registration of Person & Project Department");
-
-        //    string enrollMenu = Console.ReadLine();
-
-        //    switch (enrollMenu)
-        //    {
-        //        case "1":
-        //            ConsoleMethod.CreatePersonlFile(person);
-        //            break;
-        //    }
-        //}
-
         static void Main(string[] args)
         {
-            string[] menuOptions = new string[] { "CreatePersonlFile\t", "CreateProjectFile\t", "CreateSalary\t", "EditPersonList\t", "EditProject\t", "DeletePerson\t" };
+            string[] menuOptions = new string[] { "CreatePersonlFile\t", "CreateProjectFile\t", "CreateSalary\t", "EditPersonList\t", "EditProject\t", "EditHour\t" };
             //{ "CreatePersonlFile\t", "New staff\t", "Serivce\t", "Reparation\t", "Garantie\t" };
             int menuSelect = 0;
             
@@ -67,7 +53,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                             ConsoleMethod.EditProject();
                             break;
                         case 5:
-                            ConsoleMethod.DeletePerson();
+                            ConsoleMethod.EditHour();
                             break;
                     }
                 }
