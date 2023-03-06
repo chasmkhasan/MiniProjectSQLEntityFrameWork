@@ -177,34 +177,15 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
-            foreach (var item in PostGresDataAccess.ReadRegistrationList())
-            {
-                Console.WriteLine("ID : {0}  |  Project ID : {1}  |  Person ID : {2}  |  Hour : {3}   |", item.Id, item.Id, item.Id, item.Hours);
-            }
-
-            Console.WriteLine("Write the ID number.");
-            int inputId = int.Parse(Console.ReadLine());
-
             Console.WriteLine("Please put Old Hour.");
             int inputOldHour = int.Parse(Console.ReadLine());
 
-            //int count = 0;
-            foreach (var list in PostGresDataAccess.ReadRegistrationList())
-            {
-                if (list.Id == inputId && list.Hours == inputOldHour)
-                {
-                    Console.WriteLine("Perfect!");
-                    //count++;
-                }
-            }
+            RegistrationModel registration = PostGresDataAccess.ReadRegistration(inputOldHour);
 
             Console.WriteLine("Write the new Hours.");
             int inputNewHour = int.Parse(Console.ReadLine());
 
-            RegistrationModel registration = new RegistrationModel();
-            registration.Hours = inputNewHour;
-
-            PostGresDataAccess.EditRegistrationList(registration);
+            PostGresDataAccess.EditRegistrationList(inputNewHour, registration.Id, registration.Project_Id, registration.Person_Id);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Successfully Changed.");
@@ -212,13 +193,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             Console.ResetColor();
 
             Console.ReadKey();
-
-            foreach (var item in PostGresDataAccess.ReadRegistrationList())
-            {
-                Console.WriteLine("ID : {0}  |  Project ID : {1}  |  Person ID : {2}  |  Hour : {3}   |", item.Id, item.Id, item.Id, item.Hours);
-            }
-
-            Console.WriteLine("Please cross check with above information.");
         }
 
         public static void InvalidInput()

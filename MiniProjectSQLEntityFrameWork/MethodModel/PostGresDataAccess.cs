@@ -116,20 +116,20 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
-        //public static ProjectModel ReadRegistration(int hours)
-        //{
-        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
-        //    {
-        //        var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * FROM kha_project_person WHERE project_name = '{name}'", new DynamicParameters());
-        //        return listOfRegistrationList.FirstOrDefault();
-        //    }
-        //}
-
-        public static void EditRegistrationList(RegistrationModel registration)
+        public static RegistrationModel ReadRegistration(int hour)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                connectionWithServer.Execute("UPDATE kha_project_person SET hours = @Hours WHERE hours = @Hours", registration);
+                var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * FROM kha_project_person WHERE hours = {hour}", new DynamicParameters());
+                return listOfRegistrationList.FirstOrDefault();
+            }
+        }
+
+        public static void EditRegistrationList(int hour, int Id, int Id1, int Id2)
+        {
+            using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+            {
+                connectionWithServer.Execute($"UPDATE kha_project_person SET hours = {hour} WHERE id = {Id} AND project_id = {Id1} AND person_id = {Id2}");
             }
         }
 
