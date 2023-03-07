@@ -8,7 +8,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
     {
         static void Main(string[] args)
         {
-            string[] menuOptions = new string[] { "CreatePersonlFile\t", "CreateProjectFile\t", "CreateSalary\t", "EditPersonList\t", "EditProject\t", "EditHour\t" };
+            string[] menuOptions = new string[] { "CreatePersonlFile\t", "CreateProjectFile\t", "CreateHour\t", "EditPersonList\t", "EditProject\t", "EditHour\t" };
             //{ "CreatePersonlFile\t", "New staff\t", "Serivce\t", "Reparation\t", "Garantie\t" };
             int menuSelect = 0;
             
@@ -44,7 +44,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                             ConsoleMethod.CreateProjectFile();
                             break;
                         case 2:
-                            ConsoleMethod.CreateSalary();
+                            ConsoleMethod.CreateHour();
                             break;
                         case 3:
                             ConsoleMethod.EditPerson();

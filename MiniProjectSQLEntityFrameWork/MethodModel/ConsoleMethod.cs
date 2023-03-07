@@ -66,66 +66,52 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 
         }
 
-        public static void CreateSalary() // problem with Query
+        public static void CreateHour() // problem with Query
         {
             Console.WriteLine("----------------------------");
             Console.WriteLine("Welcome to Salary Department." +
                 "\nWe need some information from you. Please follow Belows Information.\n");
 
-
-            // Input Project information
-            // Read project list
-            foreach (var item in PostGresDataAccess.ReadProjectList())
+            foreach (var list in PostGresDataAccess.ReadProjectList())
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("ID : {0}  |  Name: {1}|", item.Id, item.Project_Name);
+                Console.WriteLine("  Name: {0}|", list.Project_Name);
                 Console.ResetColor();
             }
 
-            Console.WriteLine("Please put project ID Number");
-            var inputProjectIdConverted = int.TryParse(Console.ReadLine(), out var inputProjectId);
-            if (!inputProjectIdConverted)
-            {
-                InvalidInput();
-            }
+            Console.WriteLine("Write the PROJECT NAME. Existing Project names are above.");
+            string existingProjectName = Console.ReadLine().ToUpper();
 
-            RegistrationModel registration = new RegistrationModel();
-            registration.Project_Id = inputProjectId;
-            PostGresDataAccess.SaveRegistrationList(registration);
+            ProjectModel project = PostGresDataAccess.ReadProject(existingProjectName);
 
-            // Input Person information
-            // Read person List.
             foreach (var list in PostGresDataAccess.ReadPersonList())
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("ID : {0}  |  Name: {1}|", list.Id, list.Person_Name);
+                Console.WriteLine(" Name: {0}|", list.Person_Name);
                 Console.ResetColor();
             }
 
-            Console.WriteLine("Please put your ID number.");
-            var inputPersonIdConverted = int.TryParse(Console.ReadLine(), out var inputPersonId);
-            if (!inputPersonIdConverted)
-            {
-                InvalidInput();
-            }
+            Console.WriteLine("Write the Name. Existing NAME are above.");
+            string existingPersonName = Console.ReadLine().ToUpper();
 
-            RegistrationModel registrationModel = new RegistrationModel();
-            registrationModel.Person_Id = inputPersonId;
-            PostGresDataAccess.SaveRegistrationList(registration);
+            PersonModel person = PostGresDataAccess.ReadPerson(existingPersonName);
 
-            Console.WriteLine("How much hour did you work?");
+            Console.WriteLine("Put Desire Hour.");
             var inputHourConverted = int.TryParse(Console.ReadLine(), out var inputHour);
             if (!inputHourConverted)
             {
                 InvalidInput();
             }
 
-            RegistrationModel registrationModel1 = new RegistrationModel();
-            registrationModel1.Hours = inputHour;
-            PostGresDataAccess.SaveRegistrationList(registration);
+            RegistrationModel registration = new RegistrationModel();
+            registration.Project_Id = project.Id;
+            registration.Person_Id = person.Id;
+            registration.Hours = inputHour;
 
+            PostGresDataAccess.SaveRegistration(registration.Project_Id, registration.Person_Id, registration.Hours);
+            
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"\n Successfully Updated {inputProjectId} no project with {inputPersonId} no person {inputHour} hours has been registered in our System.");
+            Console.WriteLine($"\n Successfully Updated {existingProjectName} no project with {existingPersonName} no person {inputHour} hours has been registered in our System.");
             Console.ResetColor();
         }
 
@@ -176,6 +162,16 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         public static void EditHour()
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
+
+            Console.WriteLine("Which PROJECT would you like to change the Hour?");
+            string existingProjectname = Console.ReadLine();
+
+            ProjectModel project = PostGresDataAccess.ReadProject(existingProjectname);
+
+            Console.WriteLine("Which NAME would you like to change the Hour?");
+            string existingPersonaName = Console.ReadLine();
+
+            PersonModel person = PostGresDataAccess.ReadPerson(existingPersonaName);
 
             Console.WriteLine("Please put Old Hour.");
             int inputOldHour = int.Parse(Console.ReadLine());

@@ -61,7 +61,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                var listOfProject = connectionWithServer.Query<ProjectModel>($"SELECT * FROM kha_project", new DynamicParameters());
+                var listOfProject = connectionWithServer.Query<ProjectModel>($"SELECT * FROM kha_project");//, new DynamicParameters());
                 return listOfProject.ToList();
             }
         }
@@ -103,33 +103,49 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * From kha_project_person", new DynamicParameters());
+                var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * From kha_project_person");//, new DynamicParameters());
                 return listOfRegistrationList.ToList();
             }
         }
 
-        public static void SaveRegistrationList(RegistrationModel registration)
+        //public static void SaveRegistrationList(RegistrationModel registration)
+        //{
+        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+        //    {
+        //        connectionWithServer.Execute($"INSERT INTO kha_project_person (project_id, person_id, hours) VALUES ('{registration.Project_Id}','{registration.Person_Id}',{registration.Hours})", registration);
+        //    }
+        //}
+
+        public static void SaveRegistration(int id, int id1, int hour)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                connectionWithServer.Execute("INSERT INTO kha_project_person(project_id, person_id, hours) VALUES (@Project_Id, @Person_Id, @Hours)", registration);
+                connectionWithServer.Execute($"INSERT INTO kha_project_person (project_id, person_id, hours) VALUES ( {id}, {id1}, {hour}) ");
             }
         }
+
+        //public static void SaveRegistration(int id, int id1, int hour)
+        //{
+        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+        //    {
+        //        connectionWithServer.Execute("INSERT INTO kha_project_person (project_id, person_id, hours) VALUES (@id, @id1, @hour) ");
+        //    }
+        //}
 
         public static RegistrationModel ReadRegistration(int hour)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * FROM kha_project_person WHERE hours = {hour}", new DynamicParameters());
+                var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * FROM kha_project_person WHERE hours = {hour}"); //, new DynamicParameters());
                 return listOfRegistrationList.FirstOrDefault();
             }
         }
 
-        public static void EditRegistrationList(int hour, int Id, int Id1, int Id2)
+        public static void EditRegistrationList(int hour, int id, int id1, int id2)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
             {
-                connectionWithServer.Execute($"UPDATE kha_project_person SET hours = {hour} WHERE id = {Id} AND project_id = {Id1} AND person_id = {Id2}");
+                connectionWithServer.Execute($"UPDATE kha_project_person SET hours = {hour} WHERE id = {id} AND project_id = {id1} AND person_id = {id2}");
             }
         }
 
