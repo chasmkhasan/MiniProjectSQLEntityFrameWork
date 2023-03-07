@@ -108,13 +108,13 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
-        //public static void SaveRegistrationList(RegistrationModel registration)
-        //{
-        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
-        //    {
-        //        connectionWithServer.Execute($"INSERT INTO kha_project_person (project_id, person_id, hours) VALUES ('{registration.Project_Id}','{registration.Person_Id}',{registration.Hours})", registration);
-        //    }
-        //}
+        public static void SaveRegistrationList(RegistrationModel registration)
+        {
+            using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
+            {
+                connectionWithServer.Execute($"INSERT INTO kha_project_person (project_id, person_id, hours) VALUES ('{registration.Project_Id}','{registration.Person_Id}',{registration.Hours})", registration);
+            }
+        }
 
         public static void SaveRegistration(int id, int id1, int hour)
         {
@@ -123,14 +123,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 connectionWithServer.Execute($"INSERT INTO kha_project_person (project_id, person_id, hours) VALUES ( {id}, {id1}, {hour}) ");
             }
         }
-
-        //public static void SaveRegistration(int id, int id1, int hour)
-        //{
-        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
-        //    {
-        //        connectionWithServer.Execute("INSERT INTO kha_project_person (project_id, person_id, hours) VALUES (@id, @id1, @hour) ");
-        //    }
-        //}
 
         public static RegistrationModel ReadRegistration(int hour)
         {

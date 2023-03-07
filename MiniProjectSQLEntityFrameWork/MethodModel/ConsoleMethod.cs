@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using MiniProjectSQLEntityFrameWork.ClassModel;
 using Npgsql;
 using System;
@@ -23,6 +24,20 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 Console.WriteLine("Please Enter your Full Name.");
                 string fullPersonlName = Console.ReadLine().ToUpper();
 
+                foreach (var item in PostGresDataAccess.ReadPersonList())
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine(" Name: {0}|", item.Person_Name);
+                    Console.ResetColor();
+
+                    if (item.Person_Name == fullPersonlName)
+                    {
+                        InPutNameExit();
+                    }
+                }
+
+                Console.ReadKey();
+
                 PersonModel person = new PersonModel();
                 person.Person_Name = fullPersonlName;
 
@@ -37,11 +52,12 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 // Invalid method has been called.
                 InvalidInput();
             }
+
+            
         }
 
         public static void CreateProjectFile()
         {
-
             try
             {
                 Console.WriteLine("Welcome to registration Department." +
@@ -49,6 +65,20 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 
                 Console.WriteLine("Please Enter your Project Name.");
                 string fullProjectName = Console.ReadLine().ToUpper();
+
+                foreach (var item in PostGresDataAccess.ReadProjectList())
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine(" Name: {0}|", item.Project_Name);
+                    Console.ResetColor();
+
+                    if (item.Project_Name == fullProjectName)
+                    {
+                        InPutNameExit();
+                    }
+                }
+
+                Console.ReadKey();
 
                 ProjectModel project = new ProjectModel();
                 project.Project_Name = fullProjectName;
@@ -63,7 +93,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             {
                 InvalidInput();
             }
-
         }
 
         public static void CreateHour() // problem with Query
@@ -72,24 +101,14 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             Console.WriteLine("Welcome to Salary Department." +
                 "\nWe need some information from you. Please follow Belows Information.\n");
 
-            foreach (var list in PostGresDataAccess.ReadProjectList())
-            {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("  Name: {0}|", list.Project_Name);
-                Console.ResetColor();
-            }
+            ReadProjectListFromConsoleMethod();
 
             Console.WriteLine("Write the PROJECT NAME. Existing Project names are above.");
             string existingProjectName = Console.ReadLine().ToUpper();
 
             ProjectModel project = PostGresDataAccess.ReadProject(existingProjectName);
 
-            foreach (var list in PostGresDataAccess.ReadPersonList())
-            {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine(" Name: {0}|", list.Person_Name);
-                Console.ResetColor();
-            }
+            ReadPersonListFromConsoleMethod();
 
             Console.WriteLine("Write the Name. Existing NAME are above.");
             string existingPersonName = Console.ReadLine().ToUpper();
@@ -119,6 +138,8 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
+            ReadPersonListFromConsoleMethod();
+
             Console.WriteLine("Which person would you like to change the NAME?");
             string oldName = Console.ReadLine().ToUpper();
 
@@ -140,6 +161,8 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         public static void EditProject()
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
+
+            ReadProjectListFromConsoleMethod();
 
             Console.WriteLine("Write Old Project Name");
             string oldProjectName = Console.ReadLine().ToUpper();
@@ -163,10 +186,14 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
+            ReadProjectListFromConsoleMethod();
+
             Console.WriteLine("Which PROJECT would you like to change the Hour?");
             string existingProjectname = Console.ReadLine();
 
             ProjectModel project = PostGresDataAccess.ReadProject(existingProjectname);
+
+            ReadPersonListFromConsoleMethod()
 
             Console.WriteLine("Which NAME would you like to change the Hour?");
             string existingPersonaName = Console.ReadLine();
@@ -190,19 +217,41 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 
             Console.ReadKey();
         }
-
         public static void InvalidInput()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Invalid input!. Please put spacific information.");
             Console.ResetColor();
         }
-
         public static void IdDontExit()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("ID Doesn't exit in the system");
             Console.ResetColor();
+        }
+        public static void InPutNameExit()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("This name exit in the system. Please use extra alfabet with your name.");
+            Console.ResetColor();
+        }
+        public static void ReadProjectListFromConsoleMethod()
+        {
+            foreach (var item in PostGresDataAccess.ReadProjectList())
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine(" Name: {0}|", item.Project_Name);
+                Console.ResetColor();
+            }
+        }
+        public static void ReadPersonListFromConsoleMethod()
+        {
+            foreach (var list in PostGresDataAccess.ReadPersonList())
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine(" Name: {0}|", list.Person_Name);
+                Console.ResetColor();
+            }
         }
     }
 }
