@@ -182,37 +182,56 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             Console.ReadKey();
         }
 
-        public static void EditHour()
+        public static void EditHour() //Problem
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
+            Console.WriteLine("Please follow below name as it is(List of Project Name).");
             ReadProjectListFromConsoleMethod();
+            Console.WriteLine("----------------------------");
+
+            Console.WriteLine("Please follow below name as it is(List of Person Name).");
+            ReadPersonListFromConsoleMethod();
+            Console.WriteLine("----------------------------");
+
+            Console.WriteLine("Please follow below name as it is(List of Hours).");
+            ReadRegistrationListFromConsoleMethod();
+            Console.WriteLine("----------------------------");
+            //ReadRegistrationListFromConsoleMethod2();
 
             Console.WriteLine("Which PROJECT would you like to change the Hour?");
-            string existingProjectname = Console.ReadLine();
+            string existingProjectname = Console.ReadLine().ToUpper();
 
             ProjectModel project = PostGresDataAccess.ReadProject(existingProjectname);
 
-            ReadPersonListFromConsoleMethod()
+            //ReadRegistrationListFromConsoleMethod();
 
             Console.WriteLine("Which NAME would you like to change the Hour?");
-            string existingPersonaName = Console.ReadLine();
+            string existingPersonaName = Console.ReadLine().ToUpper();
 
             PersonModel person = PostGresDataAccess.ReadPerson(existingPersonaName);
 
             Console.WriteLine("Please put Old Hour.");
-            int inputOldHour = int.Parse(Console.ReadLine());
+            var inputHourConverted = int.TryParse(Console.ReadLine(), out var inputOldHour);
+            if (!inputHourConverted)
+            {
+                InvalidInput();
+            }
 
-            RegistrationModel registration = PostGresDataAccess.ReadRegistration(inputOldHour);
+            //RegistrationModel registration = PostGresDataAccess.ReadRegistration(inputOldHour);
 
             Console.WriteLine("Write the new Hours.");
-            int inputNewHour = int.Parse(Console.ReadLine());
+            var inputNewHourConvereted = int.TryParse(Console.ReadLine(), out var inputNewHour);
+            if (!inputNewHourConvereted)
+            {
+                InvalidInput();
+            }
 
-            PostGresDataAccess.EditRegistrationList(inputNewHour, registration.Id, registration.Project_Id, registration.Person_Id);
+            PostGresDataAccess.EditRegistrationList(inputNewHour, project.Id, person.Id);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Successfully Changed.");
-            Console.WriteLine($"We will count {inputNewHour} instead of {inputOldHour} in our system.");
+            Console.WriteLine($"{existingPersonaName} hour has been changed from {inputOldHour} instead of {inputNewHour} in our system.");
             Console.ResetColor();
 
             Console.ReadKey();
@@ -251,6 +270,55 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine(" Name: {0}|", list.Person_Name);
                 Console.ResetColor();
+            }
+        }
+
+        //public static void ReadRegistrationListFromConsoleMethod()
+        //{
+        //    foreach (var list in PostGresDataAccess.ReadRegistrationList())
+        //    {
+        //        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        //        Console.WriteLine("Hour : {0}   |", list.Hours);
+        //        Console.ResetColor();
+        //    }
+        //}
+        public static void ReadRegistrationListFromConsoleMethod()
+        {
+            foreach (var list in PostGresDataAccess.ReadRegistrationList())
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                //Console.WriteLine("ID : {0} | Project ID : {1} |  Person ID : {2}  |   Hour : {3}   |", list.Id, list.Project_Id, list.Person_Id, list.Hours);
+                Console.WriteLine("ID : {0} | Project Name : {1} |  Person Name : {2}  |   Hour : {3}   |", list.Id, list.Project_Name, list.Person_Name, list.Hours);
+                //Console.WriteLine(" Project Name : {0} |  Person Name : {1}  |   Hour : {2}   |", list.ProjectName, list.PersonName, list.Hours);
+                Console.ResetColor();
+            }
+        }
+
+        //public static void ReadRegistrationListFromConsoleMethod3()
+        //{
+        //    for (int i = 0; i < PostGresDataAccess. length; i++)
+        //    {
+
+        //    }
+        //}
+
+
+        public static void ReadRegistrationListFromConsoleMethod2()
+        {
+            foreach (var list in PostGresDataAccess.ReadRegistrationList())
+            {
+                foreach (var list1 in PostGresDataAccess.ReadPersonList())
+                {
+                    foreach (var list2 in PostGresDataAccess.ReadProjectList())
+                    {
+                        //Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        //Console.WriteLine("This person ID {0} has been worked  on {1} project for {2} hours.", list.Person_Id, list.Project_Id, list.Hours);
+                        //Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine("ID : {0}  | Person ID : {1} | Person Name : {2} |   Project ID : {3}  |  Project Name : {4}  |    Hour : {5}   |", list.Id, list1.Id, list1.Person_Name, list2.Id, list2.Project_Name, list.Hours);
+                        Console.ResetColor();
+                    }
+                }
             }
         }
     }
