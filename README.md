@@ -15,7 +15,7 @@ Here we have been talked with Data base and business logics.
 |Object     |Description    |Comment|
 |-----|--------|-------|
 |App.config |Handle database connectionstring   | Need to create Separate config.app
-|Menu |   Display menu   |
+|Menu |   Display menu   | CreatePersonFile(), CreateProjectFile(), CreateHour(), EditPerson(), EditProject(), EditHour()
 |UI-User Interface |All the methods for taking input from user     |
 |PostgresDataAccess |Methods for accessing data from database    |
 |ConsoleMethod | Class to assign project to different Method     |
