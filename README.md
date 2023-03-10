@@ -19,6 +19,8 @@ Here we have been talked with Data base and business logics.
 |UI-User Interface |All the methods for taking input from user   |  Program.cs
 |Data Access Logic |Methods for accessing data from database     |  PostGresDataAccess.cs
 |BusinessLogic  | Class to assign project to different Method    |  ConsoleMethod.cs
+|Query  | Query Decleare in central Database and LocalDatabase   |  database.sql
+|GitIgnore  | Haven't take any some files duw github - automatic update   |  database.sql
 
 ## Key features
 |Feature     |Status    |
