@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MiniProjectSQLEntityFrameWork.ClassModel;
 using Npgsql;
 using System;
@@ -24,14 +25,14 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 Console.WriteLine("Please Enter your Full Name.");
                 string fullPersonlName = Console.ReadLine().ToUpper();
 
-                // Print the Person from database.
+                //Print the Person from database.
                 foreach (var item in PostGresDataAccess.ReadPersonList())
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine(" Name: {0}|", item.Person_Name);
                     Console.ResetColor();
 
-                    // Validated the name from database
+                    //Validated the name from database
                     if (item.Person_Name != fullPersonlName)
                     {
                         InPutNameExit();
@@ -77,7 +78,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                     Console.ResetColor();
 
                     // Validated the name from database
-                    if (item.Project_Name == fullProjectName)
+                    if (item.Project_Name != fullProjectName)
                     {
                         InPutNameExit();
                     }
@@ -154,7 +155,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 
             // Print Person list from database.
             ReadPersonListFromConsoleMethod();
-
+            
             Console.WriteLine("Which person would you like to change the NAME?");
             string oldName = Console.ReadLine().ToUpper();
 
@@ -183,7 +184,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             ReadProjectListFromConsoleMethod();
 
             Console.WriteLine("Write Old Project Name");
-            string oldProjectName = Console.ReadLine().ToUpper();
+            string oldProjectName = Console.ReadLine().ToUpper();            
 
             // Taking input name but getting ID.
             ProjectModel project = PostGresDataAccess.ReadProject(oldProjectName);
@@ -205,39 +206,27 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
         {
             Console.WriteLine("WelCome to Hasan's IT Corporation's List.");
 
-            Console.WriteLine("Please follow below name as it is(List of Project Name).");
-            ReadProjectListFromConsoleMethod();
-            Console.WriteLine("----------------------------");
-
-            Console.WriteLine("Please follow below name as it is(List of Person Name).");
-            ReadPersonListFromConsoleMethod();
-            Console.WriteLine("----------------------------");
-
             Console.WriteLine("Please follow below name as it is(List of Hours).");
             ReadRegistrationListFromConsoleMethod();
             Console.WriteLine("----------------------------");
-            //ReadRegistrationListFromConsoleMethod2();
 
             Console.WriteLine("Which PROJECT would you like to change the Hour?");
             string existingProjectname = Console.ReadLine().ToUpper();
 
             ProjectModel project = PostGresDataAccess.ReadProject(existingProjectname);
 
-            //ReadRegistrationListFromConsoleMethod();
-
             Console.WriteLine("Which NAME would you like to change the Hour?");
             string existingPersonaName = Console.ReadLine().ToUpper();
 
             PersonModel person = PostGresDataAccess.ReadPerson(existingPersonaName);
 
+            
             Console.WriteLine("Please put Old Hour.");
             var inputHourConverted = int.TryParse(Console.ReadLine(), out var inputOldHour);
             if (!inputHourConverted)
             {
                 InvalidInput();
             }
-
-            //RegistrationModel registration = PostGresDataAccess.ReadRegistration(inputOldHour);
 
             Console.WriteLine("Write the new Hours.");
             var inputNewHourConvereted = int.TryParse(Console.ReadLine(), out var inputNewHour);
