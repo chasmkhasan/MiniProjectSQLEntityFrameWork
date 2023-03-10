@@ -27,4 +27,13 @@ Here we have been talked with Data base and business logics.
 |Assign project to person and hours | :white_check_mark:    |
 |Edit hour for person to assigned projects|:white_check_mark:     |
 
+👤 chasmkhasan
+
+Github:
+LinkedIn:
+WebPage: 
+## Technologies Used
+
+C#
+
 # This will work on Entity FrameWork and will work with SQL Server near future.
