@@ -29,12 +29,6 @@ Here we have been talked with Data base and business logics.
 |Assign project to person and hours | :white_check_mark:    |
 |Edit hour for person to assigned projects|:white_check_mark:     |
 
-## Creator: Welcome to visit my link:
-
-- [MK Hasan - Github](https://github.com/chasmkhasan)
-- [MK Hasan - LinkedIN](linkedin.com/in/md-kamrul-hasan-b72b1931)
-- [MK Hasan - WebPage](chasmkhasan.github.io/Dynamic-CV/)
-
 ## Technologies Used
 C#
 { get; set; }, data-oriented, using Npgsql, using NpgsqlTypes, using Dapper,
@@ -49,5 +43,11 @@ Postgres - DataBase
 -Clone the repository to your local machine.
 -Open the project in Visual Studio Code or another code editor.
 -Build and run the project.
+
+## Creator: Welcome to visit my link:
+
+- [MK Hasan - Github](https://github.com/chasmkhasan)
+- [MK Hasan - LinkedIN](linkedin.com/in/md-kamrul-hasan-b72b1931)
+- [MK Hasan - WebPage](chasmkhasan.github.io/Dynamic-CV/)
 
 # This will work on Entity FrameWork and will work with SQL Server near future.
