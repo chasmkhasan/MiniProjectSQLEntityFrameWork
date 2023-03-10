@@ -1,5 +1,5 @@
 # MiniProjectSQLEntityFrameWork
-# This will work on Entity FrameWork and will work with SQL Server near future.
+
 This project has been work with 3 layer with Refactoring. 
 
 UI - User Interface:
@@ -26,3 +26,5 @@ Here we have been talked with Data base and business logics.
 |Creating Person, Project and CreateHour |:white_check_mark:     |
 |Assign project to person and hours | :white_check_mark:    |
 |Edit hour for person to assigned projects|:white_check_mark:     |
+
+# This will work on Entity FrameWork and will work with SQL Server near future.
