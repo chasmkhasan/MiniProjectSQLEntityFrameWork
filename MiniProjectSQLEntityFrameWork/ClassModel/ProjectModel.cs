@@ -10,6 +10,7 @@ namespace MiniProjectSQLEntityFrameWork.ClassModel
     {
         public int Id { get; set; }
         public string Project_Name { get; set; }
-       
+
+        // all properties should be together. Prop should be like ProjectName instead of Project_Name. _ used is a bad practise.
     }
 }

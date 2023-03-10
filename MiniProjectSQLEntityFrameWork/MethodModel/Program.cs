@@ -8,6 +8,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
     {
         static void Main(string[] args)
         {
+            // use menubar with selection button.
             string[] menuOptions = new string[] { "CreatePersonlFile\t", "CreateProjectFile\t", "CreateHour\t", "EditPersonList\t", "EditProject\t", "EditHour\t" };
             //{ "CreatePersonlFile\t", "New staff\t", "Serivce\t", "Reparation\t", "Garantie\t" };
             int menuSelect = 0;
@@ -16,8 +17,9 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             {
                 Console.Clear();
                 Console.CursorVisible = false;
-                Console.WriteLine("Hello and welcome! Please choose type of registration:");
-
+                Console.WriteLine("Hello and welcome! Please choose type of Menu:");
+                
+                // selection with arrow button.
                 for (int i = 0; i < menuOptions.Length; i++)
                 {
                     Console.WriteLine((i == menuSelect ? "* " : "") + menuOptions[i] + (i == menuSelect ? "<--" : ""));

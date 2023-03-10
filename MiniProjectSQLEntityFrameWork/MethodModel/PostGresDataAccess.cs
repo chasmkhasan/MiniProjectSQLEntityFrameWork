@@ -15,6 +15,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
 {
     public class PostGresDataAccess
     {
+        // Print Person list from Database.
         public static List<PersonModel> ReadPersonList()
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -24,6 +25,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static PersonModel ReadPerson(string name)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -41,6 +43,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static void EditPersonList(string name, int id)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -49,6 +52,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // Delete query have method. Havn't done yet.
         public static void DeletePersonList(PersonModel person)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -74,6 +78,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static ProjectModel ReadProject(string name)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -83,6 +88,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static void EditProjectList(String name, int id)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -91,6 +97,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // Delete query have method. Havn't done yet.
         public static void DeleteProjectList(ProjectModel project)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -109,37 +116,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 return listOfRegistrationList.ToList();
             }
         }
-
-        //public static List<RegistrationModel> ReadRegistrationList()
-        //{
-        //    using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
-        //    {
-        //        var listOfRegistrationList = connectionWithServer.Query<RegistrationModel>($"SELECT * From kha_project_person");//, new DynamicParameters());
-        //        var listOfRegistrationList1 = connectionWithServer.Query<PersonModel>($"SELECT * From kha_person");//, new DynamicParameters());
-        //        var listOfRegistrationList2 = connectionWithServer.Query<ProjectModel>($"SELECT * From kha_project");//, new DynamicParameters());
-        //        var allList = connectionWithServer.Query
-        //        //var allList = (listOfRegistrationList + listOfRegistrationList1 + listOfRegistrationList2).Tolist();
-
-        //        return listOfRegistrationList.ToList();
-        //        listOfRegistrationList1.ToList();
-        //        listOfRegistrationList2.ToList();
-
-        //        //return ReadRegistrationList();
-        //    }
-        //}
-
-        //      SELECT*
-        //FROM table1
-        //INNER JOIN table2
-        //ON table1.id = table2.id
-        //INNER JOIN table3
-        //ON table2.id = table3.id;
-
-        //"SELECT p.project_name, pp.hours " +
-        //                         "FROM mra_project p " +
-        //                         "JOIN mra_project_person pp(varible) ON pp.project_id = p.id " +
-        //                         "JOIN mra_person pe ON pp.person_id = pe.id " +
-        //                         "WHERE pe.person_name = @personName";
 
         //public static List<AllRegistrationInfor> ReadRegistrationList()
         //{
@@ -183,6 +159,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static void SaveRegistration(int id, int id1, int hour)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -191,6 +168,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static RegistrationModel ReadRegistration(int hour)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -200,6 +178,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // parameter has been decleare because of read the list find out the name and give me the ID or other column.
         public static void EditRegistrationList(int hour, int id1, int id2)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -208,6 +187,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // Delete query have method. Havn't done yet.
         public static void DeleteRegistrationList(RegistrationModel registration)
         {
             using (NpgsqlConnection connectionWithServer = new NpgsqlConnection(LoadConnectionString()))
@@ -216,6 +196,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
             }
         }
 
+        // Method has been decleare for connect with database.
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
