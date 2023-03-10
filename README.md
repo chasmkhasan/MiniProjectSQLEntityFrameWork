@@ -35,6 +35,6 @@ Here we have been talked with Data base and business logics.
 
 ## Technologies Used
 
-C#
-
+C# 
+Postgres - DataBase
 # This will work on Entity FrameWork and will work with SQL Server near future.
