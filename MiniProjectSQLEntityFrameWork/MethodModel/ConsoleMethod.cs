@@ -52,8 +52,6 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                 // Invalid method has been called.
                 InvalidInput();
             }
-
-            
         }
 
         public static void CreateProjectFile()
