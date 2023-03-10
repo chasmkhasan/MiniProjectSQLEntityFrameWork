@@ -32,7 +32,7 @@ namespace MiniProjectSQLEntityFrameWork.MethodModel
                     Console.ResetColor();
 
                     // Validated the name from database
-                    if (item.Person_Name == fullPersonlName)
+                    if (item.Person_Name != fullPersonlName)
                     {
                         InPutNameExit();
                     }
